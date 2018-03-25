@@ -1,6 +1,9 @@
 var xlsx = require('node-xlsx')
 var database = require('../config/auth.js');
 var mysql = require('mysql');
+var formidable = require('formidable')
+var util = require('util')
+var fs = require('fs');
 
 var connection = mysql.createConnection({
     host: database.MySQL.host,
@@ -27,7 +30,7 @@ exports.inventory_schedule = async function (req, res) {
         })
     })
     //console.log(list)
-    
+
 }
 exports.picking_register = function (req, res) {
     var list = xlsx.parse('./csv/素子一--零件領料登記表.xlsx')
@@ -47,8 +50,42 @@ exports.Miscellaneous = function (req, res) {
         data: list[3]
     })
 }
-exports.upload = function (req,res){
+exports.upload = function (req, res) {
     res.render('upload')
+}
+exports.csv_file = async function (req, res) {
+
+    const readdir = util.promisify(fs.readdir);
+    file = await readdir(__dirname + '/../../csv/');
+    console.log('FILES ' + file)
+    res.render('csv_file', {
+        file: file
+    })
+}
+exports.look_file = async function (req, res) {
+    console.log(req.params.id);
+    var list = xlsx.parse('./csv/' + req.params.id)
+    res.render('look_file', {
+        data: list
+    })
+}
+exports.api_upload = function (req, res) {
+    var form = new formidable.IncomingForm();
+    form.uploadDir = "./csv/";
+    form.encoding = 'utf-8';
+    form.keepExtensions = true
+    console.log(form)
+    form.parse(req, function (err, fields, files) {
+        res.writeHead(200, {
+            'content-type': 'text/plain;charset=utf8'
+        });
+        fs.rename(files.csv.path, __dirname + '/../../csv/'+files.csv.name, function (err) {
+            if (err) throw err;
+            res.write('File uploaded and moved!');
+            res.end();
+        });
+
+    });
 }
 
 
@@ -123,7 +160,7 @@ exports.upload_sql = async function (req, res) {
                     }
                     break;
                 default:
-                    
+
                     if (buffer !== '') {
                         buffer = buffer + "','" + data.data[x][a]
                     } else {

@@ -5,8 +5,11 @@ exports.setRequestUrl = function (app) {
     app.get('/use_csv',controller.use_csv)
     app.get('/insert_product',controller.insert_product);
     app.get('/upload',controller.upload)
+    app.get('/csv_file',controller.csv_file)
+    app.get('/look/:id',controller.look_file)
     //back-end
     app.post('/api/insert_product',controller.api_insert_product)
+    app.post('/api/upload',controller.api_upload)
 
     //撈取csv各張sheet
     app.get('/inventory_schedule',controller.inventory_schedule)
