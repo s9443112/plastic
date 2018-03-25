@@ -1,0 +1,47 @@
+
+<style>
+        table {
+            width:100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        table#t01 tr:nth-child(even) {
+            background-color: #eee;
+        }
+        table#t01 tr:nth-child(odd) {
+           background-color: #fff;
+        }
+        table#t01 th {
+            background-color: black;
+            color: white;
+        }
+        </style>
+
+<% for(let i=0;i<data.length;i++){ %>
+    <table id="t01">
+        <tr>
+            <th colspan ="<%= data[i].data[1].length %>">Table Name : <%=data[i].name %></th>
+        </tr>
+        
+        <!-- <h2><%=data[i].data[1] %></h2> -->
+        <tr>
+            <% for(let j=0;j<data[i].data[1].length;j++){ %>
+                <td><%=data[i].data[1][j] %></td>
+            <% } %>
+        </tr>
+        <% for(let x=2;x<data[i].data.length;x++){ %>
+            <tr>
+                <% for(let a=0;a<data[i].data[1].length;a++){ %>
+                    <td><%=data[i].data[x][a] %></td>
+                <% } %>
+            </tr>
+        <% } %>        
+        
+    </table>
+<% } %>
