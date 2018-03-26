@@ -18,7 +18,7 @@ exports.index = function (req, res) {
         data: list
     })
 }
-
+//顯示資料表內容
 exports.inventory_schedule = async function (req, res) {
     var sql = "SELECT A.id,A.name,A.name_No,A.safe_amount,A.company,B.amount,B.price,B.currency,B.note FROM components_part A,components B WHERE A.id = B.id AND A.suzi_id=2"
     //var result = await go_select(sql);
@@ -30,29 +30,33 @@ exports.inventory_schedule = async function (req, res) {
         })
     })
     //console.log(list)
-
 }
+//無用 可刪除
 exports.picking_register = function (req, res) {
     var list = xlsx.parse('./csv/素子一--零件領料登記表.xlsx')
     res.render('picking_register', {
         data: list[1]
     })
 }
+//無用 可刪除
 exports.picking_record = function (req, res) {
     var list = xlsx.parse('./csv/素子一--零件領料登記表.xlsx')
     res.render('picking_record', {
         data: list[2]
     })
 }
+//無用 可刪除
 exports.Miscellaneous = function (req, res) {
     var list = xlsx.parse('./csv/素子一--零件領料登記表.xlsx')
     res.render('miscellaneous', {
         data: list[3]
     })
 }
+//上傳頁面
 exports.upload = function (req, res) {
     res.render('upload')
 }
+//觀看檔案目錄
 exports.csv_file = async function (req, res) {
 
     const readdir = util.promisify(fs.readdir);
@@ -62,6 +66,16 @@ exports.csv_file = async function (req, res) {
         file: file
     })
 }
+//選擇csv sheet 
+exports.csv_sheet = async function (req, res) {
+    console.log(req.params.id);
+    var list = xlsx.parse('./csv/' + req.params.id)
+    res.render('csv_sheet',{
+        data:list
+    })
+}
+
+//觀看csv內容
 exports.look_file = async function (req, res) {
     console.log(req.params.id);
     var list = xlsx.parse('./csv/' + req.params.id)
@@ -69,6 +83,7 @@ exports.look_file = async function (req, res) {
         data: list
     })
 }
+//上傳檔案後台
 exports.api_upload = function (req, res) {
     var form = new formidable.IncomingForm();
     form.uploadDir = "./csv/";
@@ -79,7 +94,7 @@ exports.api_upload = function (req, res) {
         res.writeHead(200, {
             'content-type': 'text/plain;charset=utf8'
         });
-        fs.rename(files.csv.path, __dirname + '/../../csv/'+files.csv.name, function (err) {
+        fs.rename(files.csv.path, __dirname + '/../../csv/' + files.csv.name, function (err) {
             if (err) throw err;
             res.write('File uploaded and moved!');
             res.end();
@@ -88,54 +103,13 @@ exports.api_upload = function (req, res) {
     });
 }
 
-
+//輸入資料頁面
 exports.insert_product = function (req, res) {
     res.render('insert_product')
 }
-
-// exports.upload_sql = async function (req, res) {
-//     var list = xlsx.parse('./csv/素子一--零件領料登記表.xlsx')
-//     var data = list[2]
-//     var buffer = '';
-//     for (let x = 2; x < data.data.length; x++) {
-//         for (let a = 1; a < data.data[1].length; a++) {
-//             //console.log(data.data[x][a])
-//             if (data.data[x][a] == undefined) {
-//                 data.data[x][a] = "";
-//                 if (buffer !== '') {
-//                     buffer = buffer + "','" + data.data[x][a]
-//                 } else {
-//                     buffer = "'" + data.data[x][a] + "'"
-//                 }
-//             } else {
-//                 if (buffer !== '') {
-//                     buffer = buffer + "','" + data.data[x][a]
-//                 } else {
-//                     buffer = data.data[x][a]
-//                 }
-//             }
-
-
-
-//         }
-//         buffer = "'" + buffer + "'";
-//         // var sql = "INSERT INTO components_part(company_id,name,name_id,safe_amount,amount,vendor,price,currency,note)VALUES(" + buffer + ")";
-//         var sql = "INSERT INTO picking_record(name,name_id,amount,date,note)VALUES(" + buffer + ")";
-//         sql = sql.replace("''''", "''")
-
-//         if (buffer !== "''") {
-
-//             await go_insert(sql);
-//             console.log("完成")
-//         }
-//         buffer = "";
-//         //console.log("========================================")
-//     }
-//     console.log("全部完成")
-//     res.send("ok")
-// }
+//上傳csv至資料庫後台
 exports.upload_sql = async function (req, res) {
-    var list = xlsx.parse('./csv/素子二--零件領料登記表.xlsx')
+    var list = xlsx.parse('./csv/素子一--零件領料登記表.xlsx')
     var data = list[0]
     var buffer = '2';
     var buffer2 = '';
@@ -191,7 +165,12 @@ exports.upload_sql = async function (req, res) {
     await go_insert(sql);
     res.send(sql)
 }
+exports.api_insert_product = function (req, res) {
 
+    console.log(req.body)
+    res.send(req.body)
+
+}
 async function go_insert(sql) {
     console.log(sql)
     await connection.query(sql, async function (error, result) {
@@ -213,22 +192,51 @@ async function go_select(sql) {
 
 
 
-exports.api_insert_product = function (req, res) {
-
-    console.log(req.body)
-    res.send(req.body)
-}
 
 
 
-exports.use_csv = async function (req, res) {
 
-    var list = xlsx.parse('./csv/素子一--零件領料登記表.xlsx')
-    console.log(JSON.stringify(list))
-    //res.send(JSON.stringify(list))
 
-    res.render('use_csv', {
-        data: list
-    })
 
-}
+
+// exports.upload_sql = async function (req, res) {
+//     var list = xlsx.parse('./csv/素子一--零件領料登記表.xlsx')
+//     var data = list[2]
+//     var buffer = '';
+//     for (let x = 2; x < data.data.length; x++) {
+//         for (let a = 1; a < data.data[1].length; a++) {
+//             //console.log(data.data[x][a])
+//             if (data.data[x][a] == undefined) {
+//                 data.data[x][a] = "";
+//                 if (buffer !== '') {
+//                     buffer = buffer + "','" + data.data[x][a]
+//                 } else {
+//                     buffer = "'" + data.data[x][a] + "'"
+//                 }
+//             } else {
+//                 if (buffer !== '') {
+//                     buffer = buffer + "','" + data.data[x][a]
+//                 } else {
+//                     buffer = data.data[x][a]
+//                 }
+//             }
+
+
+
+//         }
+//         buffer = "'" + buffer + "'";
+//         // var sql = "INSERT INTO components_part(company_id,name,name_id,safe_amount,amount,vendor,price,currency,note)VALUES(" + buffer + ")";
+//         var sql = "INSERT INTO picking_record(name,name_id,amount,date,note)VALUES(" + buffer + ")";
+//         sql = sql.replace("''''", "''")
+
+//         if (buffer !== "''") {
+
+//             await go_insert(sql);
+//             console.log("完成")
+//         }
+//         buffer = "";
+//         //console.log("========================================")
+//     }
+//     console.log("全部完成")
+//     res.send("ok")
+// }

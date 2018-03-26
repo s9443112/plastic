@@ -14,27 +14,32 @@
                     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                         
     
-                        <h2>CSV file</h2>
+                        <h2>Section title</h2>
                         <div class="table-responsive">
     
-                            
+                           
                                 <table class="table table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                <th>檔案名稱</th>
+                                                <th>選擇csv sheet</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <% for(let x=0;x<file.length;x++){ %>
+                                                <tr>                              
+                                                    <td>全部</td>
+                                                </tr>
+                                                <% for(let x=0;x<data.length;x++){ %>
                                                 <tr>
-                                                    <td><a href = "/csv_sheet/<%= file[x] %>"><%=file[x] %></a></td>
+                                                    <td><a href=/look/"<%=[x] %>"><%=data[x].name %></a></td>                                
                                                 </tr>
                                                 <% } %>        
                                         </tbody>
+                                    
                                    
                                             
                                 </table>
-
+                         
+                          
                         </div>
                     </main>
                 </div>
