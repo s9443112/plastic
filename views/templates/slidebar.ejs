@@ -1,3 +1,4 @@
+
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
@@ -14,24 +15,35 @@
                     素子一零件庫存明細表
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/picking_register">
-                    <span data-feather="shopping-cart"></span>
-                    素子一領料登記表
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/picking_record">
-                    <span data-feather="users"></span>
-                    零件領料記錄
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Miscellaneous">
-                    <span data-feather="bar-chart-2"></span>
-                    素子-雜項
-                </a>
-            </li>
+
+           
+                <% for(let i=0;i<slidebar_part.length;i++){ %>
+                
+                <h6 class="active sidebar-heading justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span><%= slidebar_part[i] %></span>
+                    <a class=" align-items-center text-muted" href="#homeSubmenu<%= i %>" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                        
+                        <span data-feather="plus-circle" style="float:right;"></span>
+                    </a>
+                    <ul class="list-unstyled collapse" id="homeSubmenu<%= i %>" >
+                        <% if(slidebar_name[i]!==undefined){ %>
+
+                            <% for(let z=0;z<slidebar_name[i].length;z++){ %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/part/<%= i+1 %>/suzi/<%= slidebar_name[i][z] %>">
+                                        <span data-feather="bar-chart-2"></span>
+                                        <%= slidebar_name[i][z] %>
+                                    </a>
+                                </li>
+                            <% } %>
+
+                        <% } %>
+                    </ul>
+                </h6>
+                <% } %>
+            
+           
+           
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -54,9 +66,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/insert_product">
                     <span data-feather="file-text"></span>
-                    Social engagement
+                    資料領取貨品
                 </a>
             </li>
             <li class="nav-item">
@@ -73,3 +85,4 @@
 <script>
     feather.replace()
 </script>
+

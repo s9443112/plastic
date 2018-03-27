@@ -26,11 +26,11 @@
                                         </thead>
                                         <tbody>
                                                 <tr>                              
-                                                    <td>全部</td>
+                                                    <td><a href="/look/<%= name %>">全部</a></td>
                                                 </tr>
                                                 <% for(let x=0;x<data.length;x++){ %>
                                                 <tr>
-                                                    <td><a href=/look/"<%=[x] %>"><%=data[x].name %></a></td>                                
+                                                    <td><a href="/look/<%= name %><%= x %>"><%=data[x].name %></a></td>                                
                                                 </tr>
                                                 <% } %>        
                                         </tbody>

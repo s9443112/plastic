@@ -22,12 +22,14 @@
                                         <thead>
                                             <tr>
                                                 <th>檔案名稱</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                                 <% for(let x=0;x<file.length;x++){ %>
                                                 <tr>
                                                     <td><a href = "/csv_sheet/<%= file[x] %>"><%=file[x] %></a></td>
+                                                    <td><a href = "/upload_sql/<%= file[x] %>">上傳資料庫</a></td>
                                                 </tr>
                                                 <% } %>        
                                         </tbody>

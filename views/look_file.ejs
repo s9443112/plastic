@@ -14,34 +14,57 @@
                     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                         
     
-                        <h2>Section title</h2>
+                        <h2><%=data.name %></h2>
                         <div class="table-responsive">
-    
-                            <% for(let i=0;i<data.length;i++){ %>
+                            <% if(data.length==null){ %>
                                 <table class="table table-striped table-sm">
                                         <thead>
                                             <tr>
-                                                <th colspan ="<%= data[i].data[1].length %>">Table Name : <%=data[i].name %></th>
+                                                <th>Table Name : <%=data.name %></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                    <% for(let j=0;j<data[i].data[1].length;j++){ %>
-                                                        <td><%=data[i].data[1][j] %></td>
+                                                    <% for(let j=0;j<data.data[1].length;j++){ %>
+                                                        <td><%=data.data[1][j] %></td>
                                                     <% } %>
                                                 </tr>
-                                                <% for(let x=2;x<data[i].data.length;x++){ %>
+                                                <% for(let x=2;x<data.data.length;x++){ %>
                                                 <tr>
-                                                    <% for(let a=0;a<data[i].data[1].length;a++){ %>
-                                                        <td><%=data[i].data[x][a] %></td>
+                                                    <% for(let a=0;a<data.data[1].length;a++){ %>
+                                                        <td><%=data.data[x][a] %></td>
                                                     <% } %>
                                                 </tr>
                                                 <% } %>        
                                         </tbody>
-                                     <!-- <h2><%=data[i].data[1] %></h2> -->
-                                   
-                                            
+                                    
                                 </table>
+                            <% }else{ %>
+
+                                <% for(let i=0;i<data.length;i++){ %>
+                                    <table class="table table-striped table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan ="<%= data[i].data[1].length %>">Table Name : <%=data[i].name %></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                        <% for(let j=0;j<data[i].data[1].length;j++){ %>
+                                                            <td><%=data[i].data[1][j] %></td>
+                                                        <% } %>
+                                                    </tr>
+                                                    <% for(let x=2;x<data[i].data.length;x++){ %>
+                                                    <tr>
+                                                        <% for(let a=0;a<data[i].data[1].length;a++){ %>
+                                                            <td><%=data[i].data[x][a] %></td>
+                                                        <% } %>
+                                                    </tr>
+                                                    <% } %>        
+                                            </tbody>
+                                    </table>
+                                <% } %>
+
                             <% } %>
                           
                         </div>

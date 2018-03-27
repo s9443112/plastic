@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Luhao 夾娃娃 Company</title>
+
+
+    <script src="{{ url_for('static', filename='dist/js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/moment-with-locales.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/bootstrap.js') }}"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='dist/css/bootstrap_old.css') }}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='dist/css/bootstrap-datetimepicker.css') }}" rel="stylesheet" /> 
+    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='dist/css/animate.css') }}" rel="stylesheet" /> 
+    
+
+    
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">陸豪總後台</a>
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="/api/logout">登出</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <!--menu-->
+        <nav class="col-sm-3 col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+
+              
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" id="index" href="index">
+                    <span data-feather="home"></span>
+                    總覽
+                  </a>
+                </li>
+
+                <!-- <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="collapsed">Home</a>
+                    <ul class="list-unstyled collapse" id="homeSubmenu" aria-expanded="false" style="height: 0px;">
+                        <li><a href="#">Home 1</a></li>
+                        <li><a href="#">Home 2</a></li>
+                        <li><a href="#">Home 3</a></li>
+                    </ul>
+                </li> -->
+                <!-- sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted -->
+                <li class="active sidebar-heading justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                  <a class=" align-items-center text-muted" href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                    <span>商店相關</span>
+                    <span data-feather="plus-circle" style="float:right;"></span>
+                  </a>
+                  <ul class="list-unstyled collapse" id="homeSubmenu" aria-expanded="false" style="height:0px;">
+                    <li class="nav-item">
+                      <a class="nav-link" id="shopMain" href="shopMain">
+                        <span data-feather="edit"></span>
+                        商店維護
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="machMain" href="machMain">
+                        <span data-feather="file"></span>
+                        上架審核
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="shopBind" href="shopBind">
+                        <span data-feather="edit"></span>
+                        機台綁定商店
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>機台相關</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                      <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+
+                <li class="nav-item">
+                  <a class="nav-link" id="addMachine" href="add">
+                    <span data-feather="file-plus"></span>
+                    新增機台
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="update" href="update">
+                    <span data-feather="edit"></span>
+                    修改機台資訊
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="remove" href="remove">
+                    <span data-feather="trash-2"></span>
+                    刪除機台資訊
+                  </a>
+                </li>
+
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>APP相關</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                      <!--span data-feather="plus-circle"></span-->
+                    </a>
+                </h6>
+                <li class="nav-item">
+                  <a class="nav-link" id="appPost" href="appPost">
+                    <span data-feather="file-plus"></span>
+                    新增公告
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="appAd" href="appAd">
+                    <span data-feather="edit"></span>
+                    更換廣告圖
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="appTheme" href="appTheme">
+                    <span data-feather="edit"></span>
+                    更換主題
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="appMSG" href="appMSG">
+                    <span data-feather="edit"></span>
+                    查詢簡訊餘額
+                  </a>
+                </li>
+              </ul>
+
+              
+          
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>尋求協助</span>
+                <a class="d-flex align-items-center text-muted" href="#">
+                  <!--span data-feather="plus-circle"></span-->
+                </a>
+              </h6>
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link" id="direction" href="direction">
+                    <span data-feather="file-text"></span>
+                    操作說明
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="contect" href="contect">
+                    <span data-feather="file-text"></span>
+                    聯絡資訊
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <!--main content-->
+          <div class="col-sm-9 col-sm-offset-3 col-md-10 offset-2 main">
+              {% block content %}
+              {% endblock %}    
+          </div>
+      </div>
+    </div> 
+
+   
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="{{ url_for('static', filename='dist/js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/moment-with-locales.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/bootstrap.js') }}"></script> -->
+
+    
+    <script src="{{ url_for('static', filename='dist/js/holder.min.js') }}" ></script>
+
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="{{ url_for('static', filename='assets/js/vendor/popper.min.js') }}"></script>
+
+
+    <!-- Notifies -->
+    <script src="{{ url_for('static', filename='dist/js/bootstrap-notify.min.js') }}"></script>
+
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script> feather.replace() </script>
+
+    <!-- Graphs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+    <!-- for datetimpicker -->
+    <script src="{{ url_for('static', filename='dist/js/bootstrap-datetimepicker.js') }}"></script>
+
+    {% block script %}
+    {% endblock %}
+    
+  </body>
+</html>
