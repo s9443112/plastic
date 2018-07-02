@@ -19,6 +19,7 @@
                                     <thead>
                                         <tr>
                                             <th>項次</th>
+                                            <th></th>
                                             <th>零件名稱</th>
                                             <th>料號</th>
                                             <th>安全庫存</th>
@@ -33,7 +34,10 @@
                                         <% for(let x=0;x<data.length;x++){ %>
                                             <tr>
                                                     <td>
-                                                        <%=data[x].id %>
+                                                        <%=data[x].suzi_own_id %>
+                                                    </td>
+                                                    <td>
+                                                        <%=data[x].suzi_twice_id %>
                                                     </td>
                                                     <td>
                                                         <%=data[x].name %>

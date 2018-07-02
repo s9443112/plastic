@@ -1,0 +1,45 @@
+module.exports = function (sequelize,DataTypes){
+    return sequelize.define('components_part',{
+        id:{
+            type:DataTypes.MEDIUMINT(8),
+            allowNull:false,
+            autoIncrement:true,
+            primaryKey:true,
+            comment:'零件'
+        },
+        suzi_id:{
+            type:DataTypes.MEDIUMINT(8),
+            allowNull:false,
+            autoIncrement:false
+        },
+        suzi_own_id:{
+            type:DataTypes.INTEGER(8),
+            allowNull:false,
+            autoIncrement:false
+        },
+        suzi_twice_id:{
+            type:DataTypes.CHAR(8),
+            allowNull:false,
+        },
+        name:{
+            type:DataTypes.CHAR(25),
+            allowNull:false,
+        },
+        name_No:{
+            type:DataTypes.CHAR(25),
+            allowNull:false,
+        },
+        safe_amount:{
+            type:DataTypes.INTEGER(8),
+            allowNull:false,
+            autoIncrement:false
+        },
+        company:{
+            type:DataTypes.CHAR(20),
+            allowNull:false,
+        },
+    },{
+        freezeTableName:true,
+        timestamps:false
+    })
+}

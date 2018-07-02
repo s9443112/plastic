@@ -2,8 +2,6 @@ var express = require('express');
 var app = require('express')();
 
 var http = require('http').Server(app);
-
-
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var cookie = require('cookie-parser');
