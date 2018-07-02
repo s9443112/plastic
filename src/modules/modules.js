@@ -4,7 +4,7 @@ var model = require('../config/db.js'); //使用sql資料表
 var xlsx = require('node-xlsx')
 
 
-exports.suzi = []//素子名稱
+exports.suzi = [] //素子名稱
 exports.slidebar_name = {}
 
 exports.upload_components_sql = async function upload_components_sql(name, id) {
@@ -51,15 +51,16 @@ exports.upload_components_sql = async function upload_components_sql(name, id) {
         }
         buffer = "('" + buffer + "')";
         buffer = buffer.replace("''''", "''")
-        //console.log("HERE "+buffer.substring(4,buffer.length))
+        console.log("HERE "+buffer.substring(4,buffer.length))
 
-        if (buffer.substring(4, buffer.length) !== ",'','','','','','')") {
+        if (buffer.substring(4, buffer.length) !== ",'NaN','','','','','')") {
             buffer2 = buffer2 + "," + buffer
         }
 
         buffer3 = "('" + buffer3 + "')";
         buffer3 = buffer3.replace("''''", "''")
-        if (buffer3 !== "('','','','','')") {
+        console.log("HERE 2"+buffer3)
+        if (buffer3 !== "('NaN','','','','')") {
             buffer4 = buffer4 + "," + buffer3
         }
         buffer = id;
@@ -80,7 +81,7 @@ exports.upload_components_sql = async function upload_components_sql(name, id) {
         //console.log(sql)
         await go_insert(sql);
 
-       
+
     } catch (err) {
         return 0;
     }
@@ -102,11 +103,11 @@ exports.upload_components_sql = async function upload_components_sql(name, id) {
             }
 
         }
-    
+
 
         buffer = "('" + buffer + "')";
         buffer = buffer.replace("''''", "''")
-        
+
 
         if (buffer.substring(4, buffer.length) !== ",'','','','','','')") {
             buffer2 = buffer2 + "," + buffer
@@ -145,11 +146,26 @@ exports.ChineseToNumber = async function ChineseToNumber(chnStr) {
         九: 9
     };
     var chnNameValue = {
-        十: { value: 10, secUnit: false },
-        百: { value: 100, secUnit: false },
-        千: { value: 1000, secUnit: false },
-        万: { value: 10000, secUnit: true },
-        亿: { value: 100000000, secUnit: true }
+        十: {
+            value: 10,
+            secUnit: false
+        },
+        百: {
+            value: 100,
+            secUnit: false
+        },
+        千: {
+            value: 1000,
+            secUnit: false
+        },
+        万: {
+            value: 10000,
+            secUnit: true
+        },
+        亿: {
+            value: 100000000,
+            secUnit: true
+        }
     }
 
     var rtn = 0;
@@ -184,7 +200,9 @@ exports.ChineseToNumber = async function ChineseToNumber(chnStr) {
 //撈取側欄欄位
 exports.slidebar = async function slidebar() {
     exports.suzi = [];
-    var sql = await model.suzi.findAll({ attributes: ['name'] });
+    var sql = await model.suzi.findAll({
+        attributes: ['name']
+    });
     for (let i = 0; i < sql.length; i++) {
         exports.suzi.push(sql[i].dataValues.name);
     }
@@ -192,9 +210,27 @@ exports.slidebar = async function slidebar() {
     console.log("搜尋完畢")
 }
 
-exports.suzi_components = async function suzi_components(suzi_id) {
-    var select = "SELECT A.suzi_own_id,A.suzi_twice_id,A.name,A.name_No,A.safe_amount,A.company,B.amount,B.price,B.currency,B.note FROM components_part A,components B WHERE A.id = B.id AND A.suzi_id=" + suzi_id;
-    var result = await model.suzi.sequelize.query(select, { type: Sequelize.QueryTypes.SELECT });
+exports.suzi_components = async function suzi_components(suzi_id,part) {
+    switch (part) {
+        case '1':
+            var select = "SELECT A.suzi_own_id,A.suzi_twice_id,A.name,A.name_No,A.safe_amount,A.company,B.amount,B.price,B.currency,B.note FROM components_part A,components B WHERE A.id = B.id AND A.suzi_id=" + suzi_id;
+            var result = await model.suzi.sequelize.query(select, {
+                type: Sequelize.QueryTypes.SELECT
+            });
+            
+            break;
+        case '2':
+            var select = "SELECT A.id,A.name,A.name_No,A.get_amount,A.get_date,A.get_sign_name,A.note FROM picking_register A,components B WHERE A.suzi_id=B.id AND A.suzi_id=" + suzi_id;
+            var result = await model.suzi.sequelize.query(select, {
+                type: Sequelize.QueryTypes.SELECT
+            });
+           
+            break;
+        case '3':
+            break;
+        case '4':
+            break;
+    }
 
     //console.log(result)
     return result;
@@ -202,7 +238,9 @@ exports.suzi_components = async function suzi_components(suzi_id) {
 
 exports.all_suzi_components = async function all_suzi_components() {
     var select = "SELECT A.id,A.name,A.name_No,A.safe_amount,A.company,B.amount,B.price,B.currency,B.note FROM components_part A,components B WHERE A.id = B.id"
-    var result = await model.sequelize.query(select, { type: Sequelize.QueryTypes.SELECT })
+    var result = await model.sequelize.query(select, {
+        type: Sequelize.QueryTypes.SELECT
+    })
 
     return result
 }
