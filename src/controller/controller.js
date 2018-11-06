@@ -42,6 +42,7 @@ exports.csv_file = async function (req, res) {
 }
 //查看 選擇素子零件庫存零件表 內容
 exports.suzi_components = async function (req, res) {
+<<<<<<< HEAD
     //console.log(req.params)
 
     //搜尋結果
@@ -50,6 +51,16 @@ exports.suzi_components = async function (req, res) {
     res.render('suzi', {
         id: req.params.suzi,
         data: data,
+=======
+    //數字轉中文
+    var suzi_id = await modules.ChineseToNumber(req.params.suzi[2])
+    //搜尋結果
+    var result = await modules.suzi_components(suzi_id,req.params.part);
+    
+    res.render('part_suzi', {
+        data: result,
+        part:req.params.part,
+>>>>>>> 2d75f71a0e737aa7c07b7d6092c8122071bf4de9
         suzi: modules.suzi,
         slidebar_name: modules.slidebar_name
     })
