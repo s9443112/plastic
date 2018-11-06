@@ -4,6 +4,7 @@ var formidable = require('formidable')
 var util = require('util')
 var fs = require('fs');
 
+
 //勞取側欄欄位
 modules.slidebar();
 
@@ -32,7 +33,7 @@ exports.csv_file = async function (req, res) {
 
     const readdir = util.promisify(fs.readdir);
     var file = await readdir(__dirname + '/../../csv/');
-    console.log('FILES ' + file)
+
     res.render('csv_file', {
         file: file,
         suzi: modules.suzi,
@@ -41,14 +42,14 @@ exports.csv_file = async function (req, res) {
 }
 //查看 選擇素子零件庫存零件表 內容
 exports.suzi_components = async function (req, res) {
+    //console.log(req.params)
 
-    //數字轉中文
-    var suzi_id = await modules.ChineseToNumber(req.params.suzi[2])
     //搜尋結果
-    var result = await modules.suzi_components(suzi_id);
-    
-    res.render('part_suzi', {
-        data: result,
+    var data = await modules.suzi_components(req.params.suzi);
+
+    res.render('suzi', {
+        id: req.params.suzi,
+        data: data,
         suzi: modules.suzi,
         slidebar_name: modules.slidebar_name
     })
@@ -79,6 +80,14 @@ exports.csv_sheet = async function (req, res) {
 }
 //觀看csv內容
 exports.look_file = async function (req, res) {
+    // var list = xlsx.parse('./csv/' + req.params.id)
+    // console.log(list[0])
+    // res.render('test',{
+    //     list:list[0]
+    // })
+
+
+
     console.log(req.params.id);
     var id = req.params.id;
     var sheet_id = id.substring(id.length - 1, id.length)
@@ -100,49 +109,51 @@ exports.look_file = async function (req, res) {
         })
     }
 }
-//上傳檔案後台
-exports.api_upload = function (req, res) {
-    var form = new formidable.IncomingForm();
-    form.uploadDir = "./csv/";
-    form.encoding = 'utf-8';
-    form.keepExtensions = true
-    console.log(form)
-    form.parse(req, function (err, fields, files) {
-        res.writeHead(200, {
-            'content-type': 'text/plain;charset=utf8'
-        });
-        fs.rename(files.csv.path, __dirname + '/../../csv/' + files.csv.name, function (err) {
-            if (err) throw err;
-            res.write('File uploaded and moved!');
-            res.end();
-        });
 
-    });
-}
 //輸入資料頁面
-exports.insert_product = function (req, res) {
+exports.insert_product = async function (req, res) {
+    var db = require('../config/db_function/suzi')
+    var suzi_title = await db.findAll()
     res.render('insert_product', {
+        suzi_title: suzi_title,
         suzi: modules.suzi,
         slidebar_name: modules.slidebar_name
     })
 }
-//上傳csv至資料庫後台
-exports.upload_sql = async function (req, res) {
 
-    var name = req.params.name;
-    //數字轉中文
-    var suzi_id = await modules.ChineseToNumber(name[2])
-    //上傳
-    var result = await modules.upload_components_sql(name, suzi_id)
-
-    if(result===1){
-        await modules.slidebar();
-        res.send("完成")
-    }else{
-        res.send("錯誤")
-    }
-
-    
+exports.history = async function (req, res) {
+    var db = require('../config/db_function/history')
+    var history_data = await db.findAll()
+    res.render('history', {
+        data: history_data,
+        suzi: modules.suzi,
+        slidebar_name: modules.slidebar_name
+    })
+}
+exports.picking_register = async function (req, res) {
+    var db = require('../config/db_function/picking_register')
+    var picking_register = await db.findAll()
+    res.render('picking_register', {
+        data: picking_register,
+        suzi: modules.suzi,
+        slidebar_name: modules.slidebar_name
+    })
+}
+exports.flot = async function (req, res) {
+    // var data = []
+    // for (var i = 0; i < 12; i++) {
+    //     data.push(Math.random() * 100);
+    // }
+    var db = require('../config/db_function/suzi')
+    var suzi_title = db.findAll()
+    var data = modules.search_all_count()
+    var [suzi_title,data] = await Promise.all([suzi_title,data])
+    res.render('flot',{
+        suzi_title:suzi_title,
+        data:data,
+        suzi: modules.suzi,
+        slidebar_name: modules.slidebar_name
+    })
 }
 
 

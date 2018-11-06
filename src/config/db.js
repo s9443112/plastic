@@ -23,8 +23,10 @@ const suzi = sequelize.import(__dirname + '/../model/suzi.js');
 const components = sequelize.import(__dirname + '/../model/components.js');
 const components_part = sequelize.import(__dirname + '/../model/components_part.js')
 const picking_register = sequelize.import(__dirname + '/../model/picking_register.js');
+const history = sequelize.import(__dirname + '/../model/history.js');
 
-// // 創建所有資料表
+// 創建所有資料表
+//.sync({ force: true })会删除并重建表
 sequelize.sync({ force: false })
 
 //suzi.hasOne(components_part, { foreignKey: 'suzi_id' });
@@ -33,3 +35,4 @@ export { suzi };
 export { components };
 export { components_part };
 export { picking_register };
+export { history };

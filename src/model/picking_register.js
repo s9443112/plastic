@@ -26,17 +26,13 @@ module.exports = function (sequelize, DataTypes) {
             autoIncrement: false
         },
         get_date: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATE(),
             defaultValue: DataTypes.NOW,
-            allowNull: false,
-        },
-        get_sign_name: {
-            type: DataTypes.CHAR(25),
             allowNull: false,
         },
         note: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
     }, {
             freezeTableName: true,

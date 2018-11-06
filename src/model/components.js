@@ -5,30 +5,35 @@ module.exports = function (sequelize,DataTypes){
             allowNull:false,
             autoIncrement:true,
             primaryKey:true,
-            comment:'零件詳細'
+            comment:'流水號'
         },
         suzi_own_id:{
             type:DataTypes.INTEGER(8),
             allowNull:false,
-            autoIncrement:false
+            autoIncrement:false,
+            comment:'物品編號'
         },
         amount:{
             type:DataTypes.INTEGER(10),
             allowNull:false,
-            autoIncrement:false
+            autoIncrement:false,
+            comment:'數量'
         },
         price:{
             type:DataTypes.INTEGER(10),
             allowNull:false,
-            autoIncrement:false
+            autoIncrement:false,
+            comment:'價格'
         },
         currency:{
             type:DataTypes.CHAR(10),
             allowNull:false,
+            comment:'幣別',
         },
         note:{
             type:DataTypes.TEXT,
-            allowNull:false,
+            allowNull:true,
+            comment:'備註',
         },
     },{
         freezeTableName:true,

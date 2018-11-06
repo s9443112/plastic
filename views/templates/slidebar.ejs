@@ -1,103 +1,164 @@
-
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-    <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">
-                    <span data-feather="home"></span>
-                    監控面板
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/all_suzi_components">
-                    <span data-feather="file"></span>
-                    低能ㄦ的天堂
-                </a>
-            </li>
-
-           
-                <% for(let i=0;i<suzi.length;i++){ %>
-                
-                <h6 class="active sidebar-heading justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span><%= suzi[i] %></span>
-                    <a class=" align-items-center text-muted" href="#homeSubmenu<%= i %>" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                        
-                        <span data-feather="plus-circle" style="float:right;"></span>
-                    </a>
-                  
-
-                    <ul class="list-unstyled collapse" id="homeSubmenu<%= i %>" >
-                        <li class="nav-item">
-                            <a class="nav-link" href="/suzi/<%= suzi[i] %>/part/1">
-                                <span data-feather="bar-chart-2"></span>
-                                <%= suzi[i] %>零件庫存明細表
-                            </a>
+   <!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <%- include("navbar") %>
+    <!-- /.navbar-top-links -->
+    <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/suzi/<%= suzi[i] %>/part/2">
-                                <span data-feather="bar-chart-2"></span>
-                                <%= suzi[i] %>領料登記表
-                            </a>
+                        <li>
+                            <a href="/"><i class="fa fa-dashboard fa-fw"></i>儀錶板</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/suzi/<%= suzi[i] %>/part/3">
-                                <span data-feather="bar-chart-2"></span>
-                                <%= suzi[i] %>領料紀錄
-                            </a>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>圖表<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">繪製圖表</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Morris.js 圖表</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/suzi/<%= suzi[i] %>/part/4">
-                                <span data-feather="bar-chart-2"></span>
-                                <%= suzi[i] %>雜項
+                        <li>
+                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> 表格</a>
+                        </li>
+                        <li>
+                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> 表單</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> 使用者介面元素<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">面板</a>
+                                </li>
+                                <li>
+                                    <a href="buttons.html">按鈕</a>
+                                </li>
+                                <li>
+                                    <a href="notifications.html">通知</a>
+                                </li>
+                                <li>
+                                    <a href="typography.html">活版印刷</a>
+                                </li>
+                                <li>
+                                    <a href="icons.html"> 圖標</a>
+                                </li>
+                                <li>
+                                    <a href="grid.html">格框</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 庫存明細<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">素子區<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                       
+                                        <% for(let i=0;i<suzi.length;i++){ %>
+                                        <li>
+                                            <a href="/suzi/<%= i+1 %>"><%= suzi[i] %></a>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">組立區<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="#">組立一</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">組立二</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">組立三</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">組立四</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">套管區<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="#">套管一</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">套管二</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">套管三</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">套管四</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-files-o fa-fw"></i>入庫
+                                <span class="fa arrow"></span>
                             </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/insert_product">入庫單</a>
+                                </li>
+                                <li>
+                                    <a href="/history">入庫紀錄</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-files-o fa-fw"></i>取料
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">取料單</a>
+                                </li>
+                                <li>
+                                    <a href="/picking_register">取料紀錄</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/csv_file"><i class="fa fa-edit fa-fw"></i> 查看csv目錄</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="blank.html">Blank Page</a>
+                                </li>
+                                <li>
+                                    <a href="login.html">Login Page</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                     </ul>
-                    
-                </h6>
-                <% } %>
-            
-           
-           
-        </ul>
-
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Saved reports</span>
-            <a class="d-flex align-items-center text-muted" href="#">
-                <span data-feather="plus-circle"></span>
-            </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-                <a class="nav-link" href="/upload">
-                    <span data-feather="file-text"></span>
-                    檔案上傳
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/csv_file">
-                    <span data-feather="file-text"></span>
-                    觀看檔案目錄
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/insert_product">
-                    <span data-feather="file-text"></span>
-                    資料領取貨品
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span>
-                    Year-end sale
-                </a>
-            </li>
-        </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
     </div>
+    <!-- /.navbar-static-side -->
 </nav>
-<!-- Icons -->
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-<script>
-    feather.replace()
-</script>
-

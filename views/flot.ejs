@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/static/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="/static/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="/static/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+      
+    </script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+         <%- include("templates/slidebar") %>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                   
+                    <h1 class="page-header"></h1>
+                   
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+              <!-- /.row -->
+              <div class="row">
+              <div class="col-lg-8">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          Line Chart Example
+                      </div>
+                      <!-- /.panel-heading -->
+                      <div class="panel-body">
+                          <div class="flot-chart">
+                              <div class="flot-chart-content" id="flot-line-chart"></div>
+                          </div>
+                      </div>
+                      <!-- /.panel-body -->
+                  </div>
+                  <!-- /.panel -->
+              </div>
+               <div class="col-lg-4">
+                 <form action="/" method="GET">
+                    <div class="form-row">
+                        <div class="col-md-12 mb-12">
+                            <label>選擇區別</label>
+                            <select name="suzi_id" onchange="showUser(this.value,'id')" class="form-control">
+                            <option value="">請選擇區別</option>
+                            <% for(var i = 0 ; i < suzi_title.length ; i++){ %>
+                            <option value=<%=suzi_title[i].id %>>
+                                <%= suzi_title[i].name %>
+                            </option>
+                            <% } %>
+                            </select>
+                        </div>
+                        <div class="col-md-12 mb-12">
+                            <label>零件名稱</label>
+                            <select id="partname" name="name"class="form-control" onchange="showUser(this.value,'name_part'); search(this.value)" disabled></select>
+                        </div>
+                        <div class="col-md-12 mb-12">
+                            <label>料號</label>
+                            <select id="partname_No" name="name_No" class="form-control" onchange="search_part(this.value)" disabled></select>
+                        </div>
+                        <div class="col-md-12 mb-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Bar Chart Example
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div class="flot-chart-content" id="flot-bar-chart"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                 </form>
+              </div>
+              <!-- /.col-lg-12 -->
+              <div class="col-lg-6">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          Pie Chart Example
+                      </div>
+                      <!-- /.panel-heading -->
+                      <div class="panel-body">
+                          <div class="flot-chart">
+                              <div class="flot-chart-content" id="flot-pie-chart"></div>
+                          </div>
+                      </div>
+                      <!-- /.panel-body -->
+                  </div>
+                  <!-- /.panel -->
+              </div>
+              <!-- /.col-lg-6 -->
+              <div class="col-lg-6">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          Multiple Axes Line Chart Example
+                      </div>
+                      <!-- /.panel-heading -->
+                      <div class="panel-body">
+                          <div class="flot-chart">
+                              <div class="flot-chart-content" id="flot-line-chart-multi"></div>
+                          </div>
+                      </div>
+                      <!-- /.panel-body -->
+                  </div>
+                  <!-- /.panel -->
+              </div>
+              <!-- /.col-lg-6 -->
+              <div class="col-lg-6">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          Moving Line Chart Example
+                      </div>
+                      <!-- /.panel-heading -->
+                      <div class="panel-body">
+                          <div class="flot-chart">
+                              <div class="flot-chart-content" id="flot-line-chart-moving"></div>
+                          </div>
+                      </div>
+                      <!-- /.panel-body -->
+                  </div>
+                  <!-- /.panel -->
+              </div>
+              <!-- /.col-lg-6 -->
+              <div class="col-lg-6">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          Bar Chart Example
+                      </div>
+                      <!-- /.panel-heading -->
+                      <div class="panel-body">
+                          <div class="flot-chart">
+                              <div class="flot-chart-content" id="flot-bar-chart"></div>
+                          </div>
+                      </div>
+                      <!-- /.panel-body -->
+                  </div>
+                  <!-- /.panel -->
+              </div>
+              <!-- /.col-lg-6 -->
+              <div class="col-lg-12">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          Flot Charts Usage
+                      </div>
+                      <!-- /.panel-heading -->
+                      <div class="panel-body">
+                          <p>Flot is a pure JavaScript plotting library for jQuery, with a focus on simple usage, attractive looks, and interactive features. In SB Admin, we are using the most recent version of Flot along with a few plugins to enhance the user experience. The Flot plugins being used are the tooltip plugin for hoverable tooltips, and the resize plugin for fully responsive charts. The documentation for Flot Charts is available on their website, <a target="_blank" href="http://www.flotcharts.org/">http://www.flotcharts.org/</a>.</p>
+                          <a target="_blank" class="btn btn-default btn-lg btn-block" href="http://www.flotcharts.org/">View Flot Charts Documentation</a>
+                      </div>
+                      <!-- /.panel-body -->
+                  </div>
+                  <!-- /.panel -->
+              </div>
+              <!-- /.col-lg-6 -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+               <!-- jQuery -->
+               <script src="/static/vendor/jquery/jquery.min.js"></script>
+
+               <!-- Bootstrap Core JavaScript -->
+               <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+           
+               <!-- Metis Menu Plugin JavaScript -->
+               <script src="/static/vendor/metisMenu/metisMenu.min.js"></script>
+           
+               <!-- Flot Charts JavaScript -->
+               <script src="/static/vendor/flot/excanvas.min.js"></script>
+               <script src="/static/vendor/flot/jquery.flot.js"></script>
+               <script src="/static/vendor/flot/jquery.flot.pie.js"></script>
+               <script src="/static/vendor/flot/jquery.flot.resize.js"></script>
+               <script src="/static/vendor/flot/jquery.flot.time.js"></script>
+               <script src="/static/vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
+              
+           
+               <!-- Custom Theme JavaScript -->
+               <script src="/static/dist/js/sb-admin-2.js"></script>
+               <script>
+                function plot(data) {
+                     var sin = []
+                     $('#flot-line-chart').empty()
+                    //     cos = [];
+                    if(data==undefined){
+                        var x = JSON.parse(htmlDecode("<%= JSON.stringify(data) %>"));
+                    }else{
+                        x = data
+                    }
+                    function htmlDecode(input){
+                            var e = document.createElement('div');
+                            e.innerHTML = input;
+                            return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+                        }
+                   
+                    console.log(JSON.stringify(x))
+                    for (var i = 0; i < x.length; i++) {
+                        //console.log(x[i])
+                        if(x[i].sub>2000){
+                            sin.push([x[i].sub, x[i].get_amount]);
+                        }
+                       
+                    }
+                    
+                    var options = {
+                        series: {
+                            lines: {
+                                show: true
+                            },
+                            points: {
+                                show: true
+                            }
+                        },
+                        grid: {
+                            hoverable: true //IMPORTANT! this is needed for tooltip to work
+                        },
+                        
+                        tooltip: true,
+                        tooltipOpts: {
+                            content: "'%s' of %x is %y",
+                            shifts: {
+                                x: -60,
+                                y: 25
+                            }
+                        }
+                    };
+            
+                    var plotObj = $.plot($("#flot-line-chart"), [{
+                        data: sin,
+                        label: "x"
+                    }],options);
+                    plot_bar(sin)
+                }
+
+                function plot_bar(sin){
+                    for (var i = 0; i < sin.length; i++) {
+                        //console.log(sin[i][0])
+                        sin[i][0] = new Date(sin[i][0]).getTime()
+                        console.log(sin[i][0])
+                       
+                    }
+                    var barOptions = {
+                        series: {
+                            bars: {
+                                show: true,
+                                barWidth: 86400000
+                            }
+                        },
+                        xaxis: {
+                            mode: "time",
+                        },
+                        grid: {
+                            hoverable: true
+                        },
+                        legend: {
+                            show: false
+                        },
+                        tooltip: true,
+                        tooltipOpts: {
+                            content: "x: %x, y: %y"
+                        }
+                    };
+                    var barData = {
+                        label: "bar",
+                        data:sin
+                    };
+                    $.plot($("#flot-bar-chart"), [barData], barOptions);
+                }
+
+
+                $(document).ready(function() {
+           
+                    var offset = 0;
+                    plot();
+                });
+                function showUser(str,name) {
+                    console.log(`str = ${str} name = ${name}`)
+                    if (str == "") {
+                        //document.getElementById("txtHint").innerHTML = "";
+                        return;
+                    }
+                    if (window.XMLHttpRequest) {
+                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp = new XMLHttpRequest();
+                    } else { // code for IE6, IE5
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange = function () {
+                        //console.log("name "+name)
+                    
+                        if (this.readyState == 4 && this.status == 200) {
+                            //console.log(this.responseText)
+                            var x = JSON.parse(this.responseText)
+                            // console.log(x[0])
+                            if(name == "id"){
+                                $("#partname").empty()
+                                $("#partname_No").empty()
+        
+                                $("#partname").append(new Option("請選擇零件名稱"), "");
+                                document.getElementById("partname").disabled = false
+                                document.getElementById("partname_No").disabled = true
+                                for (var i = 0; i < x.length; i++) {
+                                    $("#partname").append(new Option(x[i].name, x[i].name)); //新增欄位 id=partname                                     
+                                }
+                            }
+                            if(name =="name_part"){
+                                $("#partname_No").empty()
+                                $("#partname_No").append(new Option("請選擇零件料號"), "");
+                                if(x[0].name_No==''&&x.length ==1){
+                                    // console.log('沒有撈到')
+                                    document.getElementById("partname_No").disabled = true
+                                    return 
+                                }
+                                document.getElementById("partname_No").disabled = false
+                                for (var i = 0; i < x.length; i++) {
+                                    $("#partname_No").append(new Option(x[i].name_No, x[i].name_No)); //新增欄位 id=partname                                     
+                                }
+                            }
+                        
+                            //document.getElementById("txtHint").innerHTML = this.responseText;
+                        }
+                    }
+                    xmlhttp.open("GET", `/search_data?${name}=${str}`, true);
+                    xmlhttp.send();
+                }
+                
+                function search_part(name){
+                    
+                    search($("#partname").val(),name)
+                }
+                function search(name,name_No){
+                    console.log(`search is name ${name} name_No ${name_No}`)
+                    if (name == "") {
+                        //document.getElementById("txtHint").innerHTML = "";
+                        return;
+                    }
+                    if (window.XMLHttpRequest) {
+                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp = new XMLHttpRequest();
+                    } else { // code for IE6, IE5
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange = function () {
+                        //console.log("name "+name)
+                        if (this.readyState == 4 && this.status == 200) {
+                            console.log(this.responseText)
+                            var x = JSON.parse(this.responseText)
+                            plot(x)
+                            //document.getElementById("txtHint").innerHTML = this.responseText;
+                        }
+                    }
+                   
+                    xmlhttp.open("GET", `/search_data_result?name=${name}&name_No=${name_No}`, true);
+                    xmlhttp.send();
+        
+                }
+               </script>
+
+</body>
+
+</html>

@@ -10,6 +10,7 @@ module.exports = function (sequelize,DataTypes){
         name:{
             type:DataTypes.CHAR(25),
             allowNull:false,
+            comment:'素子名稱',
         },
     },{
         freezeTableName:true,
