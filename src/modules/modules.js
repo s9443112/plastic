@@ -54,37 +54,17 @@ exports.upload_components_sql = async function upload_components_sql(name, id) {
         //if(buffer.substring(3,buffer.length) ==)
         buffer = "('" + buffer + "')";
         buffer = buffer.replace("''''", "''")
-<<<<<<< HEAD
-        //console.log(buffer)
-        //console.log("HERE "+buffer.substring(4,buffer.length))
-
-        if (buffer.substring(4, buffer.length) !== ",'','','','','','')") {
-
-            if (buffer != `('${id}','NaN','','','','','')`) {
-                buffer2 = buffer2 + "," + buffer
-            }
-
-=======
         console.log("HERE "+buffer.substring(4,buffer.length))
 
         if (buffer.substring(4, buffer.length) !== ",'NaN','','','','','')") {
             buffer2 = buffer2 + "," + buffer
->>>>>>> 2d75f71a0e737aa7c07b7d6092c8122071bf4de9
         }
 
         buffer3 = "('" + buffer3 + "')";
         buffer3 = buffer3.replace("''''", "''")
-<<<<<<< HEAD
-
-        if (buffer3 !== "('','','','','')") {
-            if (buffer3 !== `('NaN','','','','')`) {
-                buffer4 = buffer4 + "," + buffer3
-            }
-=======
         console.log("HERE 2"+buffer3)
         if (buffer3 !== "('NaN','','','','')") {
             buffer4 = buffer4 + "," + buffer3
->>>>>>> 2d75f71a0e737aa7c07b7d6092c8122071bf4de9
         }
         buffer = id;
         buffer3 = '';
