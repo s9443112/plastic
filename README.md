@@ -1,5 +1,7 @@
 # plastic
 For plastic 
+MVC 架構 
+ORM 資料庫設計
 
 ## Step 1: 
   Use Google search Node.js and Yarn then Download it.
